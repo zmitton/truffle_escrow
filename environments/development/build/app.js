@@ -5474,7 +5474,7 @@ function refreshBalances() {
 function holdCoin() {
   var contract = escrow.deployed();
 
-  var amount = parseInt(document.getElementById("amount").value)*1000000000000000000;
+  var amount = Number(document.getElementById("amount").value)*1000000000000000000;
   var receiver = document.getElementById("receiver").value;
   var signer_1 = document.getElementById("signer_1").value;
 
