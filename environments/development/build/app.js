@@ -5414,14 +5414,14 @@ var factory = function factory(Pudding) {
   ;
 
   // Set up specific data for this class.
-  escrow.abi = [{ "constant": false, "inputs": [], "name": "kill", "outputs": [], "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "int256" }], "name": "holdings", "outputs": [{ "name": "amount", "type": "uint256" }, { "name": "receiver", "type": "address" }, { "name": "unSpent", "type": "bool" }, { "name": "numSigners", "type": "int8" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "receiver", "type": "address" }, { "name": "thirdPartySigner", "type": "address" }], "name": "holdCoin", "outputs": [{ "name": "id", "type": "int256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "numHoldings", "outputs": [{ "name": "", "type": "int256" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "holdingID", "type": "int256" }], "name": "signRelease", "outputs": [{ "name": "released", "type": "bool" }], "type": "function" }, { "constant": true, "inputs": [], "name": "totalValue", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
-  escrow.binary = "60606040526104b1806100126000396000f3606060405236156100565760e060020a600035046341c0e1b581146100585780637cf3a433146100975780637d619d9b146100d65780638b69450d146101f9578063cf8c8ed614610202578063d4c3eea014610300575b005b61005633600160a060020a03167382ab1649f370ccf9f2a5006130c4fca28db2587e14156104af577382ab1649f370ccf9f2a5006130c4fca28db2587eff5b61030960043560006020819052908152604081206001810154905491600160a060020a0382169160a060020a810460ff169160a860020a909104900b84565b600180548101808255600280543490810182556060819052600435608081905260a085905260c0839052600093845260208481526040808620938455928601805473ffffffffffffffffffffffffffffffffffffffff1990811690931774ff00000000000000000000000000000000000000001990811660a060020a1775ff00000000000000000000000000000000000000000019167502000000000000000000000000000000000000000000179091553360e081905261010087905287548752848720888852860183528487208054851690911782169055610160845260243561012081905261014087905287548752868352848720868852909501909152919093208054909316909117169055545b60408051918252519081900360200190f35b6101e760015481565b6101e760043560008080805b6000600050600086815260200190815260200160002060005060010160159054906101000a900460000b60000b831315156103225733600160a060020a031660006000506000878152602001908152602001600020600050600201600050600085815260200190815260200160002060005060000160009054906101000a9004600160a060020a0316600160a060020a031614156102f457600160006000506000878152602001908152602001600020600050600201600050600085815260200190815260200160002060005060000160146101000a81548160ff021916908302179055505b6001929092019161020e565b6101e760025481565b6060938452608092835260a09190915260000b60c05290f35b5060019050805b6040842085855260208590526001015460a860020a9004840b840b81136103a05760006000506000868152602001908152602001600020600050600201600050600082815260200190815260200160002060005060000160149054906101000a900460ff161515610398578391505b600101610329565b81156104a4576000600050600086815260200190815260200160002060005060010160009054906101000a9004600160a060020a0316600160a060020a031660006000600050600088815260200190815260200160002060005060000160005054604051809050600060405180830381858888f1935050505050600060005060008681526020019081526020016000206000506000016000505460026000828282505403925050819055506000600060005060008781526020019081526020016000206000506000016000508190555060006000600050600087815260200190815260200160002060005060010160146101000a81548160ff021916908302179055505b506001949350505050565b56";
+  escrow.abi = [{ "constant": false, "inputs": [], "name": "kill", "outputs": [], "type": "function" }, { "constant": false, "inputs": [{ "name": "receiver", "type": "address" }, { "name": "thirdPartySigner", "type": "address" }], "name": "holdCoin", "outputs": [{ "name": "id", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "numHoldings", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "holdingID", "type": "uint256" }], "name": "signRelease", "outputs": [{ "name": "released", "type": "bool" }], "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "holdings", "outputs": [{ "name": "amount", "type": "uint256" }, { "name": "receiver", "type": "address" }, { "name": "thirdPartySigner", "type": "address" }, { "name": "unSpent", "type": "bool" }], "type": "function" }];
+  escrow.binary = "6060604052610222806100126000396000f3606060405260e060020a600035046341c0e1b581146100475780637d619d9b146100865780638b69450d14610122578063a66f7ad61461012b578063af503309146101cc575b005b61004533600160a060020a03167382ab1649f370ccf9f2a5006130c4fca28db2587e1415610220577382ab1649f370ccf9f2a5006130c4fca28db2587eff5b60018054810180825560e06040908152346060819052600435608081905260243560a081905260c08690526000948552602085905292909320908155808401805473ffffffffffffffffffffffffffffffffffffffff19908116909417905560020180549092161774ff0000000000000000000000000000000000000000191660a060020a179055545b60408051918252519081900360200190f35b61011060015481565b61011060043560008181526020819052604081206002015433600160a060020a03908116911614156101c457604081206002015460a060020a900460ff16600114156101c457604081208054600190910154600160a060020a0316908290606082818181858883f1505060409091208484526020849052600201805474ff00000000000000000000000000000000000000001916905550505b506001919050565b600060208190526004358152604090208054600182015460029092015461020a92600160a060020a03908116919081169060a060020a900460ff1684565b6060938452608092835260a09190915260c05290f35b56";
 
-  if ("0x0e03e40f684f6eb7cd9f08acd03219c0e92514e2" != "") {
-    escrow.address = "0x0e03e40f684f6eb7cd9f08acd03219c0e92514e2";
+  if ("0xa85ca955b27dd80cb428a26efe842897694c311d" != "") {
+    escrow.address = "0xa85ca955b27dd80cb428a26efe842897694c311d";
 
     // Backward compatibility; Deprecated.
-    escrow.deployed_address = "0x0e03e40f684f6eb7cd9f08acd03219c0e92514e2";
+    escrow.deployed_address = "0xa85ca955b27dd80cb428a26efe842897694c311d";
   }
 
   escrow.generated_with = "1.0.3";
@@ -5454,34 +5454,64 @@ function setStatus(message) {
   status.innerHTML = message;
 };
 
-function refreshBalance() {
-  var meta = escrow.deployed();
-
-  meta.getBalance.call(account, {from: account}).then(function(value) {
-    var balance_element = document.getElementById("balance");
-    balance_element.innerHTML = value.valueOf();
-  }).catch(function(e) {
-    console.log(e);
-    setStatus("Error getting balance; see log.");
-  });
+function refreshBalances() {
+  var contract = escrow.deployed();
+  var balanceTable = document.getElementById('balances');
+  balanceTable.innerHTML = "";
+  for (var i = 0; i < web3.eth.accounts.length ; i++) {
+    var value = web3.eth.getBalance(web3.eth.accounts[i])/(web3.toWei(1, "ether"));
+    var row =  document.createElement("tr");
+    var accountData =  document.createElement("td");
+    var balanceData =  document.createElement("td");
+    accountData.innerHTML = web3.eth.accounts[i];
+    balanceData.innerHTML = Math.round(value.valueOf()*1000)/1000;
+    row.appendChild(accountData);
+    row.appendChild(balanceData);
+    balanceTable.appendChild(row);
+  }
 };
 
-function sendCoin() {
-  var meta = escrow.deployed();
+function holdCoin() {
+  var contract = escrow.deployed();
 
-  var amount = parseInt(document.getElementById("amount").value);
+  var amount = parseInt(document.getElementById("amount").value)*1000000000000000000;
   var receiver = document.getElementById("receiver").value;
+  var signer_1 = document.getElementById("signer_1").value;
 
   setStatus("Initiating transaction... (please wait)");
 
-  meta.sendCoin(receiver, amount, {from: account}).then(function() {
+  contract.holdCoin(receiver, signer_1, {from: account, value: amount, gas: 1000000}).then(function(response) {
+    console.log(response);
+
     setStatus("Transaction complete!");
-    refreshBalance();
+    refreshBalances();
   }).catch(function(e) {
     console.log(e);
     setStatus("Error sending coin; see log.");
   });
 };
+
+function signRelease() {
+  var contract = escrow.deployed();
+
+  var fromAccount = document.getElementById("fromAccount").value;
+  var holdingNumber = Number(document.getElementById("holdingNumber").value);
+
+
+  setStatus("Initiating transaction... (please wait)");
+
+  contract.signRelease(holdingNumber, {from: fromAccount, gas: 1000000}).then(function(response) {
+    console.log(response);
+
+    setStatus("Transaction complete!");
+    refreshBalances();
+  }).catch(function(e) {
+    console.log(e);
+    setStatus("Error sending coin; see log.");
+  });
+};
+
+
 
 window.onload = function() {
   web3.eth.getAccounts(function(err, accs) {
@@ -5498,7 +5528,7 @@ window.onload = function() {
     accounts = accs;
     account = accounts[0];
 
-    refreshBalance();
+    refreshBalances();
   });
 }
 ;
