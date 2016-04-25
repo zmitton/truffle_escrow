@@ -53,7 +53,7 @@ function signRelease() {
 
   setStatus("Initiating transaction... (please wait)");
 
-  contract.signRelease(holdingNumber, {from: fromAccount, gas: 1000000}).then(function(response) {
+  contract.signRelease(holdingNumber, {from: fromAccount, gas: 1000000 }).then(function(response) {
     console.log(response);
 
     setStatus("Transaction complete!");

@@ -1,4 +1,4 @@
-contract escrow { 
+contract escrow {
   mapping (uint => Holding) public holdings;
   uint public numHoldings;
 
