@@ -31,8 +31,8 @@ h1, h2 {
 }
 
 h2 {
-  color: #AAA;
-  font-size: 32px;
+  color: #000;
+  font-size: 28px;
 }
 
 h3 {
@@ -47,4 +47,8 @@ h3 {
 
 #balance {
   color: black;
+}
+
+td{
+  border: #AAAAAA solid 1px;
 }

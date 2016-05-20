@@ -5738,7 +5738,7 @@ var Pudding =
     abi: [{"constant":false,"inputs":[],"name":"kill","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"thirdPartySigner","type":"address"}],"name":"holdCoin","outputs":[{"name":"id","type":"uint256"}],"type":"function"},{"constant":true,"inputs":[],"name":"numHoldings","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"holdingID","type":"uint256"}],"name":"signRelease","outputs":[{"name":"released","type":"bool"}],"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"holdings","outputs":[{"name":"amount","type":"uint256"},{"name":"receiver","type":"address"},{"name":"thirdPartySigner","type":"address"},{"name":"unSpent","type":"bool"}],"type":"function"}],
     binary: "6060604052610222806100126000396000f3606060405260e060020a600035046341c0e1b581146100475780637d619d9b146100865780638b69450d14610122578063a66f7ad61461012b578063af503309146101cc575b005b61004533600160a060020a03167382ab1649f370ccf9f2a5006130c4fca28db2587e1415610220577382ab1649f370ccf9f2a5006130c4fca28db2587eff5b60018054810180825560e06040908152346060819052600435608081905260243560a081905260c08690526000948552602085905292909320908155808401805473ffffffffffffffffffffffffffffffffffffffff19908116909417905560020180549092161774ff0000000000000000000000000000000000000000191660a060020a179055545b60408051918252519081900360200190f35b61011060015481565b61011060043560008181526020819052604081206002015433600160a060020a03908116911614156101c457604081206002015460a060020a900460ff16600114156101c457604081208054600190910154600160a060020a0316908290606082818181858883f1505060409091208484526020849052600201805474ff00000000000000000000000000000000000000001916905550505b506001919050565b600060208190526004358152604090208054600182015460029092015461020a92600160a060020a03908116919081169060a060020a900460ff1684565b6060938452608092835260a09190915260c05290f35b56",
     unlinked_binary: "6060604052610222806100126000396000f3606060405260e060020a600035046341c0e1b581146100475780637d619d9b146100865780638b69450d14610122578063a66f7ad61461012b578063af503309146101cc575b005b61004533600160a060020a03167382ab1649f370ccf9f2a5006130c4fca28db2587e1415610220577382ab1649f370ccf9f2a5006130c4fca28db2587eff5b60018054810180825560e06040908152346060819052600435608081905260243560a081905260c08690526000948552602085905292909320908155808401805473ffffffffffffffffffffffffffffffffffffffff19908116909417905560020180549092161774ff0000000000000000000000000000000000000000191660a060020a179055545b60408051918252519081900360200190f35b61011060015481565b61011060043560008181526020819052604081206002015433600160a060020a03908116911614156101c457604081206002015460a060020a900460ff16600114156101c457604081208054600190910154600160a060020a0316908290606082818181858883f1505060409091208484526020849052600201805474ff00000000000000000000000000000000000000001916905550505b506001919050565b600060208190526004358152604090208054600182015460029092015461020a92600160a060020a03908116919081169060a060020a900460ff1684565b6060938452608092835260a09190915260c05290f35b56",
-    address: "0xb2cfc17055438adb1f33c332ecaa7e974dfa22da",
+    address: "a85ca955b27dd80cb428a26efe842897694c311d",
     generated_with: "2.0.6",
     contract_name: "escrow"
   };
@@ -5799,8 +5799,6 @@ var Pudding =
 
 
 
-var accounts;
-var account;
 var balance;
 
 function setStatus(message) {
@@ -5815,10 +5813,13 @@ function refreshBalances() {
   for (var i = 0; i < web3.eth.accounts.length ; i++) {
     var value = web3.eth.getBalance(web3.eth.accounts[i])/(web3.toWei(1, "ether"));
     var row =  document.createElement("tr");
+    var isCoinbase =  document.createElement("td");
     var accountData =  document.createElement("td");
     var balanceData =  document.createElement("td");
     accountData.innerHTML = web3.eth.accounts[i];
-    balanceData.innerHTML = Math.round(value.valueOf()*1000)/1000;
+    balanceData.innerHTML = Math.round(value.valueOf()*1000)/1000 + " ETH";
+    isCoinbase.innerHTML = i == 0 ? "ACTIVE COINBASE" : "";
+    row.appendChild(isCoinbase);
     row.appendChild(accountData);
     row.appendChild(balanceData);
     balanceTable.appendChild(row);
@@ -5827,34 +5828,33 @@ function refreshBalances() {
 
 function holdCoin() {
   var contract = escrow.deployed();
-
   var amount = Number(document.getElementById("amount").value)*1000000000000000000;
   var receiver = document.getElementById("receiver").value;
   var signer_1 = document.getElementById("signer_1").value;
 
   setStatus("Initiating transaction... (please wait)");
 
-  contract.holdCoin(receiver, signer_1, {from: account, value: amount, gas: 1000000}).then(function(response) {
+  contract.holdCoin(receiver, signer_1, {from: web3.eth.accounts[0], value: amount, gas: 1000000}).then(function(response) {
     console.log(response);
 
     setStatus("Transaction complete!");
     refreshBalances();
   }).catch(function(e) {
     console.log(e);
-    setStatus("Error sending coin; see log.");
+    setStatus("Error; See Log");
+    if(web3.eth.accounts[0] != accounts[0]){
+       setStatus("Make sure account " +accounts[0]+ " is unlocked in wallet")
+    }
   });
 };
 
 function signRelease() {
   var contract = escrow.deployed();
-
-  var fromAccount = document.getElementById("fromAccount").value;
   var holdingNumber = Number(document.getElementById("holdingNumber").value);
-
 
   setStatus("Initiating transaction... (please wait)");
 
-  contract.signRelease(holdingNumber, {from: fromAccount, gas: 1000000 }).then(function(response) {
+  contract.signRelease(holdingNumber, {from: web3.eth.accounts[0], gas: 1000000 }).then(function(response) {
     console.log(response);
 
     setStatus("Transaction complete!");
@@ -5864,8 +5864,6 @@ function signRelease() {
     setStatus("Error sending coin; see log.");
   });
 };
-
-
 
 window.onload = function() {
   web3.eth.getAccounts(function(err, accs) {
@@ -5878,9 +5876,6 @@ window.onload = function() {
       alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
       return;
     }
-
-    accounts = accs;
-    account = accounts[0];
 
     refreshBalances();
   });
